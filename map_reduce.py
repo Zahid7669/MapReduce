@@ -92,6 +92,15 @@ def generate_final_output(total_counts, final_output_file):
     print(f"Created final output file {final_output_file}")
 
 
+def print_distinct_names_count(final_output_file):
+    tree = ET.parse(final_output_file)
+    root = tree.getroot()
+    items = root.findall(".//item")  # Find all <item> elements
+    distinct_names_count = len(items)
+    print(f"Count of distinct names from {final_output_file}: {distinct_names_count}")
+
+
+
 input_files = ['People1.xml', 'People2.xml', 'People3.xml']
 mapper_output_files = ['mapper_People1.xml', 'mapper_People2.xml', 'mapper_People3.xml']
 reducer_output_files = ['reducer_People1.xml', 'reducer_People2.xml', 'reducer_People3.xml']
@@ -103,3 +112,5 @@ final_reducer(input_files, mapper_output_files, reducer_output_files, final_outp
 
 total_counts = calculate_total_counts(reducer_output_files)
 generate_final_output(total_counts, final_output_file)
+
+print_distinct_names_count(final_output_file)
